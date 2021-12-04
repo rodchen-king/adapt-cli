@@ -1,6 +1,6 @@
 {
   "name": "@adapt-cli-dev/utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> TODO: description",
   "author": "rodchen <rodchen_king@outlook.com>",
   "homepage": "https://github.com/rodchen-king/adapt-cli#readme",
@@ -22,7 +22,5 @@
   },
   "bugs": {
     "url": "https://github.com/rodchen-king/adapt-cli/issues"
-  },
-  "dependencies": {
   }
 }
