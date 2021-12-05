@@ -1,14 +1,25 @@
 {
-  "name": "adapt-cli-dev",
+  "name": "adapt-cli-tool",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "adapt-cli": "bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodchen-king/adapt-cli.git"
+  },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "lerna": "^4.0.0"
+  "bugs": {
+    "url": "https://github.com/rodchen-king/adapt-cli/issues"
+  },
+  "homepage": "https://github.com/rodchen-king/adapt-cli#readme",
+  "dependencies": {
+    "adapt-lib": "^1.0.0"
   }
 }
