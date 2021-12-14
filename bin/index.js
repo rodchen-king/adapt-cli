@@ -30,8 +30,26 @@ service
     console.log('do service start', port)
   })
 
-  program.addCommand(service)
+program.addCommand(service)
 
+program
+  .command('install [name]', 'install package', {
+    executableFile: 'adapt-cli', // 会执行adapt-cli,
+    // isDefault: true,
+    hidden: true
+  })  // 这种用法会执行使用adapt-cli-install
+  .alias('i')
+
+// yargs.demandCommand
+program  // 匹配所有未注册的命令
+  .arguments('<cmd> [options]')
+  .description('test command', {
+    cmd: 'command to run',
+    options: 'options for command'
+  })
+  .action(function(cmd, options) {
+    console.log(cmd, options)
+  })
 
 program
   .parse(process.argv)
