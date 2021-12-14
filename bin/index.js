@@ -41,15 +41,39 @@ program
   .alias('i')
 
 // yargs.demandCommand
-program  // 匹配所有未注册的命令
-  .arguments('<cmd> [options]')
-  .description('test command', {
-    cmd: 'command to run',
-    options: 'options for command'
-  })
-  .action(function(cmd, options) {
-    console.log(cmd, options)
-  })
+// program  // 匹配所有未注册的命令
+//   .arguments('<cmd> [options]')
+//   .description('test command', {
+//     cmd: 'command to run',
+//     options: 'options for command'
+//   })
+//   .action(function(cmd, options) {
+//     console.log(cmd, options)
+//   })
+
+// 高级定制：自定义help信息
+// program.outputHelp()
+// console.log(program.helpInformation())
+// program.helpInformation = function() {
+//   return 'your help information'
+// }
+// program.on('--help', function() {
+//   // console.log('your help information')
+// })
+
+// 高级定制2: debug模式
+program.on('option:debug', function() {
+  console.log('debug')
+  process.env.LOG_LEVEL = 'verbose'
+  // console.log(process.env.LOG_LEVEL)
+})
+
+// 高级定制3: 未知命令监听
+program.on('command:*', function(obj) {
+  console.error('未知的命令')
+  const availabledCommand = program.commands.map(cmd => cmd.name())
+  console.log('可用命令: ' + availabledCommand.join(','))
+})
 
 program
   .parse(process.argv)
