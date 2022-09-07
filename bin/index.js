@@ -5,7 +5,7 @@ const colors = require('colors/safe');
 
 const pkg = require('../package.json');
 const gen = require('./swagger');
-const writeFileApi = require('./create');
+const { fileDisplay, writeFile, findFileMappingPath } = require('./create');
 const { option } = require('commander');
 
 const program = new commander.Command();
@@ -18,29 +18,11 @@ program
   .option('-e, --envName <envname>', '获取环境变量名称')
 
   colors.red(1)
-// command 注册命令
-const init = program.command('init <sourceUrl>');
-init
-  .description('初始化swagger地址: bitsun-cli init http://47.100.87.54:9101/srm-ops/v2/api-docs')
-  .action((sourceUrl, destination, cmdObj) => {
-      console.log(colors.blue('开始初始化'))
-      try {
-        gen(sourceUrl).then(res => {
-          console.log(colors.blue('初始化完成'))
-        })
-        .catch(e => {
-          console.log(colors.red('error:', e.message))
-        });
-      } catch (e) {
-        
-      }
-      
-  })
 
 // command 注册命令
-const create = program.command('create <method> <sourceUrl> [businessname]');
+const create = program.command('run');
 create
-  .description(`创建table页面: bitsun-cli create get /sku 商品编码
+  .description(`搜集资源code: bitsun-cli run
 
 ${colors.blue('Args参数：')}
 method            get / post / delete / put / patch
@@ -50,7 +32,31 @@ businessname      业务名称
   .action((method, sourceUrl, businessname) => {
       console.log(colors.blue('开始创建文件'))
       try {
-        writeFileApi(method, sourceUrl, businessname || '基础')
+        // fileDisplay('./src//pages/AllocationManagement/TransferIssueDoc/')
+        // fileDisplay('./src//pages/CommodityCenter/Brand/BrandManagement/')
+        fileDisplay('./src/pages/')
+
+      } catch (e) {
+        console.log(e)
+      }
+      
+  })
+
+const convert = program.command('convert');
+convert
+  .description(`搜集资源code: bitsun-cli convert
+
+${colors.blue('Args参数：')}
+method            get / post / delete / put / patch
+sourceUrl         api地址
+businessname      业务名称
+  `)
+  .action((method, sourceUrl, businessname) => {
+      console.log(colors.blue('开始转换文件'))
+      try {
+
+        findFileMappingPath('./config/router/')
+
       } catch (e) {
         console.log(e)
       }
